@@ -22,7 +22,7 @@
 		   Country, 
 		   State, 
 		   zip,
-		   notes)
+		   comments)
 		values
 		(
 		'#customerObject.snipcart_ID#',
@@ -199,7 +199,7 @@
 	<cfargument name="snipcart_ID" type="any" required="true">
 	<cfquery  name="orders" datasource="eakinsMySQL" >
 		select tbl_customers.Name,t.itemName,DATE_FORMAT(t.items__completionDate,'%Y-%m-%d') as date, t.items__numberOfItemsInOrder as numberOfItems,t.Trans_ID,format(t.items__finalGrandTotal	,2) as amount, 
-		tbl_customers.Address_1,tbl_customers.address_2,tbl_customers.City,tbl_customers.State,tbl_customers.Country,tbl_customers.email,tbl_customers.zip,tbl_customers.comments
+		tbl_customers.Address_1,tbl_customers.address_2,tbl_customers.City,tbl_customers.State,tbl_customers.Country,tbl_customers.email,tbl_customers.zip,tbl_customers.comments,tbl_customers.newsletter
 		from tbl_customers
 		inner join tbl_orders t on tbl_customers.snipcart_id = t.snipcart_ID
 		where t.snipcart_ID = '#snipcart_ID#' and masterTrans = 1
@@ -215,7 +215,7 @@
 	<cfargument name="snipcart_ID" type="any" >
 	<cfquery name="customers" datasource="eakinsMySQL">
 	select email,Name,
-	       Address_1,address_2,City,State,zip,Country
+	       Address_1,address_2,City,State,zip,Country,newsletter
 		from tbl_customers
 		where snipcart_ID = '#snipcart_ID#'
 		</cfquery>
@@ -352,16 +352,8 @@ where assetPhotoType = 3 AND np.id NOT IN (select photoID from heroimages)
 			VOLUME,
 			forSale,
 			price,
-			authorString,
-			coverImage,
-			featuredIssue,
-			featuredIssueImage,
-			featuredIssueImage2,
-			pdfForSale,
-			issueTechDescription,
-			display,
-			shortDescription,
-			longDescription
+			authorString
+			
 			)
     VALUES (
         	'#newIssue.issueTitle#',
@@ -370,16 +362,8 @@ where assetPhotoType = 3 AND np.id NOT IN (select photoID from heroimages)
 			  '#newIssue.VOLUME#',
 			  '#newIssue.FORSALE#',
 			  '#newIssue.PRICE#',
-			  '#newIssue.AUTHORSTRING#',
-			  '#newIssue.COVERIMAGE#',
-			  #newIssue.FEATUREDISSUE#,
-			  '#newIssue.FEATUREDISSUEIMAGE#',
-			  '#newIssue.FEATUREDISSUEIMAGE2#',
-			  '#newIssue.PDFFORSALE#',
-			  '#newIssue.ISSUETECHDESCRIPTION#',
-			  #newIssue.DISPLAY#,
-			  '#newIssue.SHORTDESCRIPTION#',
-			  '#newIssue.LONGDESCRIPTION#'
+			  '#newIssue.AUTHORSTRING#'
+			 
 			  )
 		</cfquery>
 	<cfreturn 1>
